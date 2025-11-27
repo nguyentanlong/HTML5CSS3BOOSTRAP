@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nguyễn Tấn Long</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+    integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="style.css" />
+
+</head>
+
+<body>
+  <!-- topbar -->
+  <div class="topbar">
+    <div class="topbar-container">
+
+      <!-- Bên trái: 2 dropdown -->
+      <div class="topbar-left">
+        <!-- Dropdown ngôn ngữ -->
+        <div class="dropdown" id="lang-dropdown">
+          <button class="dropbtn">
+            Tiếng Việt <span class="arrow">v</span>
+          </button>
+          <div class="dropdown-menu">
+            <a href="#">Tiếng Việt</a>
+            <a href="#">English</a>
+          </div>
+        </div>
+
+        <!-- Dropdown tài khoản -->
+        <div class="dropdown" id="account-dropdown">
+          <button class="dropbtn">
+            Tài khoản của bạn <span class="arrow">v</span>
+          </button>
+          <div class="dropdown-menu">
+            <a href="#">Đăng nhập</a>
+            <a href="#">Đăng ký miễn phí</a>
+            <hr>
+            <a href="#">Đơn hàng của tôi</a>
+            <a href="#">Đổi mật khẩu</a>
+            <a href="#">Đăng xuất</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bên phải -->
+      <div class="topbar-right">
+        <a href="#" class="highlight">Mã giảm giá</a>
+        <a href="#">Hướng dẫn</a>
+        <a href="tel:0328732676" class="hotline">Hotline: 0328.73.2676</a>
+      </div>
+
+    </div>
+  </div>
+  <!-- MAIN HEADER MỚI -->
+  <header class="main-header">
+    <div class="container">
+
+      <!-- Logo -->
+      <a href="#" class="logo">
+        <img src="https://i.imgur.com/5pX7z3Z.png" alt="Muamau" height="44">
+        <!-- Nếu không có ảnh thì dùng text -->
+        <!--<span class="logo-m">M</span>ua nhiều thứ -->
+      </a>
+
+      <!-- Categories Dropdown -->
+      <div class="category-dropdown" id="category-dropdown">
+        <button class="category-btn">
+          Danh mục <span class="arrow">v</span>
+        </button>
+        <div class="category-menu">
+          <a href="#">Điện thoại & Phụ kiện</a>
+          <a href="#">Laptop - Máy tính</a>
+          <a href="#">Đồ gia dụng</a>
+          <a href="#">Thời trang nữ</a>
+          <a href="#">Thời trang nam</a>
+          <a href="#">Mẹ & Bé</a>
+          <a href="#">Sức khỏe - Làm đẹp</a>
+          <a href="#">Thể thao - Dã ngoại</a>
+          <a href="#">Xem tất cả Danh mục Right Arrow</a>
+        </div>
+      </div>
+
+      <!-- Search Form -->
+      <form class="search-form" role="search">
+        <div class="search-wrapper">
+          <input type="text" placeholder="Nhập từ khóa cần tìm" aria-label="Tìm kiếm sản phẩm">
+          <button type="submit">Tìm</button>
+        </div>
+      </form>
+
+    </div>
+  </header>
+  <!-- HERO BANNER SECTION -->
+  <section class="hero-banner">
+    <div class="hero-container">
+
+      <!-- Bên trái: 2 banner nhỏ -->
+      <div class="hero-left">
+        <a href="#" class="banner-small banner-freeship">
+          <img src="https://i.imgur.com/2k3fX9m.jpg" alt="Freeship 0đ">
+        </a>
+        <a href="#" class="banner-small banner-clean">
+          <img src="https://i.imgur.com/8yL5pQv.jpg" alt="Nhà sạch đẹp xinh">
+        </a>
+      </div>
+
+      <!-- Bên phải: Slider lớn 3 ảnh -->
+      <div class="hero-slider">
+        <div class="slides">
+          <img src="https://i.imgur.com/X7zK9pN.jpg" alt="Slide 1" class="active">
+          <img src="https://i.imgur.com/Y9mP2vB.jpg" alt="Slide 2">
+          <img src="https://i.imgur.com/Z3qR8tL.jpg" alt="Slide 3">
+        </div>
+
+        <!-- Nút prev/next -->
+        <button class="prev">Left Arrow</button>
+        <button class="next">Right Arrow</button>
+
+        <!-- Dots -->
+        <div class="dots">
+          <span class="dot active" data-slide="0"></span>
+          <span class="dot" data-slide="1"></span>
+          <span class="dot" data-slide="2"></span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+  <!-- ==================== DANH MỤC + PHỐ MUA SẮM ==================== -->
+  <section class="categories-section">
+    <div class="container">
+      <!-- DANH MỤC -->
+      <!-- <div class="section-header">
+<h2>Danh mục</h2>
+      </div> -->
+
+      <div class="categories-carousel">
+        <h2>Danh mục</h2>
+        <div class="carousel-track">
+          <a href="#" class="cat-item">
+            <img src="https://i.imgur.com/9x8kL2m.png" alt="Khăn lau">
+            <p>Khăn lau</p>
+          </a>
+          <a href="#" class="cat-item">
+            <img src="https://i.imgur.com/fPq3vLm.png" alt="Dụng cụ nhà bếp">
+            <p>Dụng cụ nhà bếp nhỏ</p>
+          </a>
+          <a href="#" class="cat-item">
+            <img src="https://i.imgur.com/J7vR9pN.png" alt="Hộp đựng đồ">
+            <p>Hộp đựng đồ</p>
+          </a>
+          <a href="#" class="cat-item">
+            <img src="https://i.imgur.com/mK2pL8v.png" alt="Cốc">
+            <p>Cốc</p>
+          </a>
+          <a href="#" class="cat-item">
+            <img src="https://i.imgur.com/Q1wS9xP.png" alt="Dép đi trong nhà">
+            <p>Dép đi trong nhà</p>
+          </a>
+          <a href="#" class="cat-item">
+            <img src="https://i.imgur.com/rT5vL9p.png" alt="Gối">
+            <p>Gối</p>
+          </a>
+          <a href="#" class="cat-item">
+            <img src="https://i.imgur.com/yH3kP2v.png" alt="Thú cưng">
+            <p>Sản phẩm cho thú cưng</p>
+          </a>
+          <a href="#" class="cat-item">
+            <img src="https://i.imgur.com.vn/kid.png" alt="Trẻ em">
+            <p>Sản phẩm cho trẻ em</p>
+          </a>
+          <a href="#" class="cat-item">
+            <img src="https://i.imgur.com/bra.png" alt="Đồ lót">
+            <p>Đồ lót</p>
+          </a>
+        </div>
+        <button class="carousel-prev">Left Arrow</button>
+        <button class="carousel-next">Right Arrow</button>
+      </div>
+
+      <!-- PHỐ MUA SẮM -->
+      <div class="section-header">
+        <h2>Phố mua sắm</h2>
+        <a href="#" class="view-all">Xem tất cả</a>
+      </div>
+
+      <div class="shops-carousel">
+        <div class="carousel-track">
+          <a href="#" class="shop-item">
+            <img src="https://i.imgur.com/joyoung.png" alt="Joyoung">
+            <p>Joyoung Official Store</p>
+          </a>
+          <a href="#" class="shop-item">
+            <img src="https://i.imgur.com/bear.png" alt="Bear">
+            <p>Bear Official Store VN</p>
+          </a>
+          <a href="#" class="shop-item">
+            <img src="https://i.imgur.com/myhao.png" alt="Mỹ Hảo">
+            <p>Mỹ Hảo Chính Hãng</p>
+          </a>
+          <a href="#" class="shop-item">
+            <img src="https://i.imgur.com/joyoung.png" alt="Joyoung">
+            <p>Joyoung Official Store</p>
+          </a>
+          <a href="#" class="shop-item">
+            <img src="https://i.imgur.com/bear.png" alt="Bear">
+            <p>Bear Official Store VN</p>
+          </a>
+          <a href="#" class="shop-item">
+            <img src="https://i.imgur.com/myhao.png" alt="Mỹ Hảo">
+            <p>Mỹ Hảo Chính Hãng</p>
+          </a>
+          <a href="#" class="shop-item">
+            <img src="https://i.imgur.com/joyoung.png" alt="Joyoung">
+            <p>Joyoung Official Store</p>
+          </a>
+          <a href="#" class="shop-item">
+            <img src="https://i.imgur.com/bear.png" alt="Bear">
+            <p>Bear Official Store VN</p>
+          </a>
+          <a href="#" class="shop-item">
+            <img src="https://i.imgur.com/myhao.png" alt="Mỹ Hảo">
+            <p>Mỹ Hảo Chính Hãng</p>
+          </a>
+          <a href="#" class="shop-item">
+            <img src="https://i.imgur.com/joyoung.png" alt="Joyoung">
+            <p>Joyoung Official Store</p>
+          </a>
+          <a href="#" class="shop-item">
+            <img src="https://i.imgur.com/bear.png" alt="Bear">
+            <p>Bear Official Store VN</p>
+          </a>
+          <a href="#" class="shop-item">
+            <img src="https://i.imgur.com/myhao.png" alt="Mỹ Hảo">
+            <p>Mỹ Hảo Chính Hãng</p>
+          </a>
+          <a href="#" class="shop-item">
+            <img src="https://i.imgur.com/joyoung.png" alt="Joyoung">
+            <p>Joyoung Official Store</p>
+          </a>
+          <a href="#" class="shop-item">
+            <img src="https://i.imgur.com/bear.png" alt="Bear">
+            <p>Bear Official Store VN</p>
+          </a>
+          <a href="#" class="shop-item">
+            <img src="https://i.imgur.com/myhao.png" alt="Mỹ Hảo">
+            <p>Mỹ Hảo Chính Hãng</p>
+          </a>
+          <!-- Thêm thoải mái bao nhiêu shop cũng được, tự động trượt -->
+        </div>
+        <button class="carousel-prev">Left Arrow</button>
+        <button class="carousel-next">Right Arrow</button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Để test scroll -->
+  <div style="height: 200vh; background: #f9f5ff;"></div>
+  <script src="script.js"></script>
+</body>
+
+</html>
