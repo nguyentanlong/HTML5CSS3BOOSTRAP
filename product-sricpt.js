@@ -1,78 +1,56 @@
+// ĐỢI HTML TẢI XONG MỚI CHẠY JS – QUAN TRỌNG NHẤT!!!
+document.addEventListener('DOMContentLoaded', function () {
 
-// detail product
-// ===== THUMBNAIL ĐỔI ẢNH CHÍNH =====
-const mainImg = document.getElementById('main-img');
-document.querySelectorAll('.thumb').forEach(thumb => {
+  // ===== THUMBNAIL ĐỔI ẢNH CHÍNH =====
+  const mainImg = document.getElementById('main-img');
+  document.querySelectorAll('.thumb').forEach(thumb => {
     thumb.addEventListener('click', function () {
-        // Xóa active cũ
-        document.querySelectorAll('.thumb').forEach(t => t.classList.remove('active'));
-        // Thêm active mới
-        this.classList.add('active');
-        // Đổi ảnh chính
-        mainImg.src = this.dataset.img;
+      document.querySelectorAll('.thumb').forEach(t => t.classList.remove('active'));
+      this.classList.add('active');
+      mainImg.src = this.dataset.img;
     });
-});
+  });
 
-// ===== TAB CHUYỂN NỘI DUNG =====
-document.querySelectorAll('.tab-btn').forEach(btn => {
+  // ===== TAB CHUYỂN NỘI DUNG =====
+  document.querySelectorAll('.tab-btn').forEach(btn => {
     btn.addEventListener('click', function () {
-        // Xóa active tất cả
-        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-        document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+      // Xóa active cũ
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
 
-        // Thêm active cho cái được click
-        btn.classList.add('active');
-        const tabId = btn.getAttribute('data-tab');
-        document.getElementById(tabId).classList.add('active');
+      // Thêm active mới
+      this.classList.add('active');
+      const tabId = this.getAttribute('data-tab');
+      document.getElementById(tabId).classList.add('active');
     });
-});
-// Thumbnail đổi ảnh chính
-// document.querySelectorAll('.thumb').forEach(thumb => {
-//   thumb.addEventListener('click', () => {
-//     document.querySelectorAll('.thumb').forEach(t => t.classList.remove('active'));
-//     thumb.classList.add('active');
-//     document.getElementById('main-img').src = thumb.dataset.img;
-//   });
-// });
+  });
 
-// // Tab chuyển nội dung
-// document.querySelectorAll('.tab-btn').forEach(btn => {
-//   btn.addEventListener('click', () => {
-//     document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-//     document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
-//     btn.classList.add('active');
-//     document.getElementById(btn.dataset.tab).classList.add('active');
-//   });
-// });
-
-
-//relation product
-// Reuse hàm carousel cũ (nếu chưa có thì thêm hàm này)
-function initCarousel(carousel) {
+  // ===== CAROUSEL SẢN PHẨM LIÊN QUAN (nếu có) =====
+  function initCarousel(carousel) {
     const track = carousel.querySelector('.carousel-track');
-    const items = track.children.length;
+    if (!track) return;
     const prev = carousel.querySelector('.carousel-prev');
     const next = carousel.querySelector('.carousel-next');
     let index = 0;
 
     function update() {
-        const width = track.children[0].offsetWidth + 20;
-        track.style.transform = `translateX(-${index * width}px)`;
+      const itemWidth = track.children[0].offsetWidth + 20;
+      track.style.transform = `translateX(-${index * itemWidth}px)`;
     }
 
-    next.addEventListener('click', () => {
-        index = (index < items - 5) ? index + 1 : 0;
+    if (next && prev) {
+      next.onclick = () => {
+        index = index < track.children.length - 5 ? index + 1 : 0;
         update();
-    });
-
-    prev.addEventListener('click', () => {
-        index = (index > 0) ? index - 1 : items - 5;
+      };
+      prev.onclick = () => {
+        index = index > 0 ? index - 1 : track.children.length - 5;
         update();
-    });
-
+      };
+    }
     window.addEventListener('resize', update);
     update();
-}
+  }
 
-// Khởi động carousel related
-document.querySelectorAll('.related-carousel').forEach(initCarousel); 
+  document.querySelectorAll('.related-carousel').forEach(initCarousel);
+});
