@@ -76,8 +76,31 @@ def update_excel(file_path, input_text):
         sheet.cell(row=idx+1, column=8, value=dongia)
         sheet.cell(row=idx+1, column=9, value=f"=G{idx+1}*H{idx+1}")
 
-    total_row = len(data) + 2
-    sheet.cell(row=total_row, column=8, value="Tổng thanh toán")
+        total_row = len(data) + 2
+        #sheet.cell(row=total_row, column=8, value="Tổng thanh toán")
+# 1. Tạo dòng merge 8 ô, text "Tổng Thanh Toán" in đậm, canh giữa
+    row_merge1 = ws.max_row + 1  # thêm ngay sau dữ liệu
+    ws.merge_cells(start_row=row_merge1, start_column=1, end_row=row_merge1, end_column=8)
+    cell1 = ws.cell(row=row_merge1, column=1)
+    cell1.value = "Tổng Thanh Toán"
+    cell1.font = Font(bold=True)
+    cell1.alignment = Alignment(horizontal="center", vertical="center")
+
+# 2. Tạo dòng merge 10 ô, chữ đậm và nghiêng, nội dung là số tiền viết bằng chữ của ô J12
+    row_merge2 = row_merge1 + 1
+    ws.merge_cells(start_row=row_merge2, start_column=1, end_row=row_merge2, end_column=10)
+    cell2 = ws.cell(row=row_merge2, column=1)
+
+# Lấy giá trị từ ô J12
+    amount = ws["J12"].value
+    if isinstance(amount, (int, float)):
+        amount_text = num2words(amount, lang="vi")  # chuyển số thành chữ tiếng Việt
+    else:
+        amount_text = str(amount)
+
+    cell2.value = amount_text
+    cell2.font = Font(bold=True, italic=True)
+    cell2.alignment = Alignment(horizontal="center", vertical="center")
     sheet.cell(row=total_row, column=9, value=f"=SUM(I2:I{total_row-1})")
 
     # Luôn tạo file mới
