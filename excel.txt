@@ -44,7 +44,19 @@ def update_excel(file_path, input_text):
     sheet = wb.active
 
     # Xóa dữ liệu cũ (giữ lại tiêu đề)
-    sheet.delete_rows(2, sheet.max_row)
+    #sheet.delete_rows(2, sheet.max_row)
+    start_row = 3
+    end_row = None
+
+    for row in range(start_row, ws.max_row + 1):
+    cell_value = ws[f"A{row}"].value
+    if cell_value and str(cell_value).strip().lower() == "Ghi chú":
+        end_row = row
+        break
+
+# Nếu tìm thấy thì xóa từ A3 đến dòng ngay trước "ghi chú"
+    if end_row:
+    ws.delete_rows(start_row, end_row - start_row)
 
     headers = ["STT","Tên hạng mục","Đvt","Mã hiệu/Mô tả","Xuất xứ","Bảo hành","Số lượng","Đơn giá","Thành tiền"]
     for col, h in enumerate(headers, start=1):
