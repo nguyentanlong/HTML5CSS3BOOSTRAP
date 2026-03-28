@@ -1,0 +1,112 @@
+import openpyxl
+from telegram import Update
+from telegram.ext import Application, CommandHandler, MessageHandler, filters, ContextTypes
+import os
+from pydrive.auth import GoogleAuth
+from pydrive.drive import GoogleDrive
+
+# ====== Hàm tạo tên file mới ======
+def get_new_filename(base_name="ketqua.xlsx"):
+    if not os.path.exists(base_name):
+        return base_name
+    i = 1
+    while True:
+        new_name = f"ketqua-{i}.xlsx"
+        if not os.path.exists(new_name):
+            return new_name
+        i += 1
+
+# ====== Các hàm Excel ======
+def parse_input(input_text):
+    products = [p.strip() for p in input_text.split(".") if p.strip()]
+    parsed = []
+    for prod in products:
+        fields = [f.strip() for f in prod.split(",")]
+        if len(fields) == 8:  # STT, Tên, Đvt, Mã hiệu, Xuất xứ, Bảo hành, SL, Đơn giá
+            parsed.append(fields)
+    return parsed
+
+def upload_to_drive(file_path):
+    gauth = GoogleAuth()
+    gauth.LocalWebserverAuth()  # Mở trình duyệt để đăng nhập Google
+    drive = GoogleDrive(gauth)
+
+    file = drive.CreateFile({'title': os.path.basename(file_path)})
+    file.SetContentFile(file_path)
+    file.Upload()
+    print(f"Đã upload {file_path} lên Google Drive với ID: {file['id']}")
+    return file['id']
+
+
+def update_excel(file_path, input_text):
+    data = parse_input(input_text)
+    wb = openpyxl.load_workbook(file_path)
+    sheet = wb.active
+
+    # Xóa dữ liệu cũ (giữ lại tiêu đề)
+    sheet.delete_rows(2, sheet.max_row)
+
+    headers = ["STT","Tên hạng mục","Đvt","Mã hiệu/Mô tả","Xuất xứ","Bảo hành","Số lượng","Đơn giá","Thành tiền"]
+    for col, h in enumerate(headers, start=1):
+        sheet.cell(row=1, column=col, value=h)
+
+    for idx, fields in enumerate(data, start=1):
+        stt, ten, dvt, ma, xuatxu, baohanh, soluong, dongia = fields
+        soluong = int(soluong)
+        dongia = int(dongia)
+        sheet.cell(row=idx+1, column=1, value=idx)
+        sheet.cell(row=idx+1, column=2, value=ten)
+        sheet.cell(row=idx+1, column=3, value=dvt)
+        sheet.cell(row=idx+1, column=4, value=ma)
+        sheet.cell(row=idx+1, column=5, value=xuatxu)
+        sheet.cell(row=idx+1, column=6, value=baohanh)
+        sheet.cell(row=idx+1, column=7, value=soluong)
+        sheet.cell(row=idx+1, column=8, value=dongia)
+        sheet.cell(row=idx+1, column=9, value=f"=G{idx+1}*H{idx+1}")
+
+    total_row = len(data) + 2
+    sheet.cell(row=total_row, column=8, value="Tổng thanh toán")
+    sheet.cell(row=total_row, column=9, value=f"=SUM(I2:I{total_row-1})")
+
+    # Luôn tạo file mới
+    output_path = get_new_filename("ketqua.xlsx")
+    wb.save(output_path)
+     # Upload lên Google Drive
+    file_id = upload_to_drive(output_path)
+    return output_path, file_id
+     # return output_path
+
+# ====== Phần Telegram Bot ======
+TOKEN = "8772865463:AAFwGymloxnUBpMpNA5Fc2Z2XK5iaw0HphY"
+
+async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await update.message.reply_text("Xin chào! Gửi nội dung sản phẩm để cập nhật Excel.")
+
+async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    input_text = update.message.text
+    try:
+        output_file = update_excel("mau.xlsx", input_text)
+        await update.message.reply_text(f"Excel đã được cập nhật thành công!\nFile: {output_file}\nGoogle Drive ID: {file_id}")
+    except Exception as e:
+        await update.message.reply_text(f"Lỗi: {e}")
+
+def main():
+    app = Application.builder().token(TOKEN).build()
+    app.add_handler(CommandHandler("start", start))
+    app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
+    app.run_polling()
+
+if __name__ == "__main__":
+# Input mẫu: mỗi sản phẩm cách nhau bằng dấu chấm ".", mỗi trường cách nhau bằng dấu phẩy ","
+    #sample_input = "1, Laptop Dell, cái, DELL123, USA, 12 tháng, 2, 15000000.2, Chuột Logitech, cái, LOGI456, China, 6 tháng, 5, 300000"
+    #output_file = update_excel("mau.xlsx", sample_input)
+    #print(f"File Excel đã được tạo: {output_file}")
+   
+    main()
+pip install python-telegram-bot openpyxl
+pip install pandas
+driver
+pip install pydrive
+pip install google-api-python-client google-auth-httplib2 google-auth-oauthlib
+xác thực 
+pip install google-api-python-client google-auth-httplib2 google-auth-oauthlib
